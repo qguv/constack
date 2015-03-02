@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+%html(lang="en")
+  %head
+
+    %title constack
+
+    / jquery
+    %script(src="jquery.js")
+
+    / twitter bootstrap
+    %meta(name="viewport" charset="utf-8" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
+    %link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css")
+    %script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js")
+
+    / our own JS
+    %script(src="constack.js")
+
+    :css
+      .hideme { display: none; }
+
+  %body
+    %div.container
+      %div.col-xs-12.col-md-6.col-md-offset-3
+
+        %h2 constack
+
+        %div.input-group
+          %input.form-control(type="text" placeholder="New Topic")
+            %span.input-group-btn
+              %button#push.btn.btn-default
+                %span(class="glyphicon glyphicon-download-alt")
+                Push
+        %hr
+        %div#topics
+          / these two are always in the DOM
+          %a.topic.list-group-item.active recentest
+          %a.topic.list-group-item less recenter
+          %a.topic.list-group-item oldest
+          %a#empty-stack.topic.list-group-item.disabled.hideme nothing yet
+          %a#ptype.topic.list-group-item.hideme prototype
