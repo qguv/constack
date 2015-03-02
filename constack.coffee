@@ -25,16 +25,15 @@ spush = ->
   recalc()
 
 spop = ->
-  # get rid of the old element and put it in the input field
+  # get rid of the old element
   doomed = $('a.topic.active').first()
-  $('input').val $(doomed).text()
   doomed.remove()
 
   topel = $('a.topic').first()
 
   # if the only element after deletion is the empty-stack marker
   if topel.id == 'empty-stack'
-    topel.removeClass 'hideme'
+    topel.removeClass 'hideme' #FIXME
   # if there is another element in the stack
   else
     topel.addClass 'active'
