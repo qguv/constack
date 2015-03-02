@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <title>constack</title>
+    <!-- jquery -->
+    <script src='jquery.js'></script>
+    <!-- twitter bootstrap -->
+    <meta charset='utf-8' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css' rel='stylesheet'>
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js'></script>
+    <!-- our own JS -->
+    <script src='constack.js'></script>
+    <style>
+      .hideme { display: none; }
+    </style>
+  </head>
+  <body>
+    <div class='container'>
+      <div class='col-xs-12 col-md-6 col-md-offset-3'>
+        <h2>constack</h2>
+        <div class='input-group'>
+          <input class='form-control' placeholder='New Topic' type='text'>
+            <span class='input-group-btn'>
+              <button class='btn btn-default' id='push'>
+                <span class='glyphicon glyphicon-download-alt'></span>
+                Push
+              </button>
+            </span>
+          </input>
+        </div>
+        <hr>
+        <div id='topics'>
+          <!-- these two are always in the DOM -->
+          <a class='topic list-group-item active'>recentest</a>
+          <a class='topic list-group-item'>less recenter</a>
+          <a class='topic list-group-item'>oldest</a>
+          <a class='topic list-group-item disabled hideme' id='empty-stack'>nothing yet</a>
+          <a class='topic list-group-item hideme' id='ptype'>prototype</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
