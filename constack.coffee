@@ -63,8 +63,8 @@ $(document).ready ->
   # we use keyup rather than keydown here to avoid key repeat
   $('input').keyup (event) ->
 
-    # Return pressed
-    spush() if event.which == 13
+    # if return is pressed in a non-empty text field
+    spush() if event.which == 13 and $('input').val() != ''
 
     # if delete is pressed in an empty text field
     spop() if event.which == 0x2e and $('input').val() == ''
