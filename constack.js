@@ -3,36 +3,40 @@
   var recalc, spop, spush;
 
   spush = function() {
-    var ptype, topel;
-    topel = $('a.topic').first();
-    if (topel.attr('id') === 'empty-stack') {
-      topel.addClass('hideme');
+    var newtip, oldtip;
+    oldtip = $('a.topic').first();
+    if (oldtip.attr('id') === 'empty-stack') {
+      oldtip.hide();
     } else {
-      topel.removeClass('active');
+      oldtip.removeClass('active');
     }
-    ptype = $('a#ptype').clone();
-    ptype.removeAttr('id');
-    ptype.removeClass('hideme');
-    ptype.addClass('active');
-    ptype.text($('input').val());
-    ptype.insertBefore(topel);
+    newtip = $('a#ptype').clone();
+    newtip.removeAttr('id');
+    newtip.removeClass('hideme');
+    newtip.addClass('active');
+    newtip.text($('input').val());
+    newtip.insertBefore(oldtip);
     $('input').val('');
     return recalc();
   };
 
   spop = function() {
-    var doomed, newtop;
+    var doomed, empty_stack, hotshot;
     doomed = $('a.topic.active').first();
-    newtop = $('a.topic').not('.active').first();
+    hotshot = $('a.topic').not('.active').first();
+    empty_stack = hotshot.attr('id') === 'empty-stack';
     doomed.removeClass('active');
-    if (newtop.attr('id') === 'empty-stack') {
-      newtop.removeClass('hideme');
-    } else {
-      newtop.addClass('active');
+    doomed.addClass('disabled');
+    if (!empty_stack) {
+      hotshot.addClass('active');
+      doomed.slideUp(300, function() {
+        return this.remove();
+      });
     }
-    doomed.slideUp(400, function() {
-      return this.remove();
-    });
+    if (empty_stack) {
+      doomed.remove();
+      hotshot.fadeIn();
+    }
     return recalc();
   };
 
@@ -46,7 +50,7 @@
     $('input').focus();
     $('input').select();
     $('input').keyup(function(event) {
-      if (event.which === 13) {
+      if (event.which === 13 && $('input').val() !== '') {
         spush();
       }
       if (event.which === 0x2e && $('input').val() === '') {

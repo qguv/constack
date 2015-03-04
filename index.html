@@ -12,7 +12,9 @@
     <script src='constack.js'></script>
     <style>
       .hideme { display: none; }
-      p { color: #999; text-align: justify; }
+      p { color: #999; }
+      p#tutor { text-align: justify; }
+      p#credit { text-align: right; }
     </style>
   </head>
   <body>
@@ -41,7 +43,15 @@
           <a href='https://en.wikipedia.org/wiki/Stack_%28abstract_data_type%29'>stack.</a>
           Push elements by typing and pressing return or clicking push. Pop the
           top element by pressing delete when no text has been entered or by
-          clicking the stack. Pop other elements by clicking them.
+          clicking the stack.
+          <strong>
+            All data is stored locally, so only you can see it. All topics are erased entirely when you
+            <a href='#' onclick='window.location.reload(true);'>reload the page.</a>
+          </strong>
+        </p>
+        <p id='credit'>
+          by Quint Guvernator. Source available
+          <a href='http://github.com/qguv/constack'>on Github.</a>
         </p>
       </div>
     </div>
