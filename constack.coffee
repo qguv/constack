@@ -1,46 +1,49 @@
 spush = ->
-  topel = $('a.topic').first()
+  oldtip = $('a.topic').first()
 
   # if the only element before insertion is the empty-stack marker
-  if topel.attr('id') == 'empty-stack'
-    topel.addClass 'hideme'
+  if oldtip.attr('id') == 'empty-stack'
+    oldtip.hide()
   # if there is another element in the stack
   else
-    topel.removeClass 'active'
+    oldtip.removeClass 'active'
 
   # generate a new prototype
-  ptype = $('a#ptype').clone()
-  ptype.removeAttr 'id'
-  ptype.removeClass 'hideme'
-  ptype.addClass 'active'
-  ptype.text $('input').val()
+  newtip = $('a#ptype').clone()
+  newtip.removeAttr 'id'
+  newtip.removeClass 'hideme'
+  newtip.addClass 'active'
+  newtip.text $('input').val()
 
   # put the newly-created item in the document
-  ptype.insertBefore topel
+  newtip.insertBefore oldtip
 
   # clear out the input field
   $('input').val ''
 
-  # rewire onClick
+  # rewire onClick handlers
   recalc()
 
 spop = ->
+  # grab old 'doomed' and new 'hotshot' tip-of-stack elements
   doomed = $('a.topic.active').first()
-  newtop = $('a.topic').not('.active').first()
+  hotshot = $('a.topic').not('.active').first()
+  empty_stack = hotshot.attr('id') == 'empty-stack'
 
+  # blank out the doomed element
   doomed.removeClass 'active'
+  doomed.addClass 'disabled'
 
-  # if the only element after deletion is the empty-stack marker
-  if newtop.attr('id') == 'empty-stack'
-    newtop.removeClass 'hideme'
-  # if there is another element in the stack
-  else
-    newtop.addClass 'active'
+  if not empty_stack
+    hotshot.addClass 'active' # highlight the next element
+    doomed.slideUp 300, ->    # get rid of the old element
+      @.remove()
 
-  # get rid of the old element
-  doomed.slideUp 400, ->
-    @.remove()
+  if empty_stack
+    doomed.remove()  # instantly remove the old element
+    hotshot.fadeIn() # fade in the 'empty stack' placeholder
 
+  # rewire onClick handlers
   recalc()
 
 recalc = ->
@@ -48,17 +51,22 @@ recalc = ->
   $('a.topic').not('#ptype').not('#empty-stack').click spop
 
 $(document).ready ->
+
+  # wire up the text field's button
   $('#push').click spush
 
+  # automatically put keyboard focus on the text field
   $('input').focus()
   $('input').select()
 
+  # handle keyboard events from the text field
+  # we use keyup rather than keydown here to avoid key repeat
   $('input').keyup (event) ->
 
     # Return pressed
     spush() if event.which == 13
 
-    # Delete pressed
+    # if delete is pressed in an empty text field
     spop() if event.which == 0x2e and $('input').val() == ''
 
   recalc()
