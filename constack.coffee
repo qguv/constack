@@ -25,18 +25,21 @@ spush = ->
   recalc()
 
 spop = ->
-  # get rid of the old element
   doomed = $('a.topic.active').first()
-  doomed.remove()
+  newtop = $('a.topic').not('.active').first()
 
-  topel = $('a.topic').first()
+  doomed.removeClass 'active'
 
   # if the only element after deletion is the empty-stack marker
-  if topel.attr('id') == 'empty-stack'
-    topel.removeClass 'hideme'
+  if newtop.attr('id') == 'empty-stack'
+    newtop.removeClass 'hideme'
   # if there is another element in the stack
   else
-    topel.addClass 'active'
+    newtop.addClass 'active'
+
+  # get rid of the old element
+  doomed.slideUp 400, ->
+    @.remove()
 
   recalc()
 
