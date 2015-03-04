@@ -2,7 +2,7 @@ spush = ->
   topel = $('a.topic').first()
 
   # if the only element before insertion is the empty-stack marker
-  if topel.id == 'empty-stack'
+  if topel.attr('id') == 'empty-stack'
     topel.addClass 'hideme'
   # if there is another element in the stack
   else
@@ -32,8 +32,8 @@ spop = ->
   topel = $('a.topic').first()
 
   # if the only element after deletion is the empty-stack marker
-  if topel.id == 'empty-stack'
-    topel.removeClass 'hideme' #FIXME
+  if topel.attr('id') == 'empty-stack'
+    topel.removeClass 'hideme'
   # if there is another element in the stack
   else
     topel.addClass 'active'
