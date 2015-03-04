@@ -55,7 +55,7 @@ $(document).ready ->
     # Return pressed
     spush() if event.which == 13
 
-    # Delete pressed #FIXME
-    spop() if event.which == 0x2e and $('input').val == ''
+    # Delete pressed
+    spop() if event.which == 0x2e and $('input').val() == ''
 
   recalc()
