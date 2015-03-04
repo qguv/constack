@@ -46,6 +46,10 @@ recalc = ->
 
 $(document).ready ->
   $('#push').click spush
+
+  $('input').focus()
+  $('input').select()
+
   $('input').keyup (event) ->
 
     # Return pressed
