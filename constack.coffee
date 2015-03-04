@@ -42,7 +42,7 @@ spop = ->
 
 recalc = ->
   $('a.topic').unbind()
-  $('a.topic.active').first().click spop
+  $('a.topic').not('#ptype').not('#empty-stack').click spop
 
 $(document).ready ->
   $('#push').click spush
