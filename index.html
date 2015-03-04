@@ -12,6 +12,7 @@
     <script src='constack.js'></script>
     <style>
       .hideme { display: none; }
+      p { color: #999; text-align: justify; }
     </style>
   </head>
   <body>
@@ -31,12 +32,17 @@
         <hr>
         <div id='topics'>
           <!-- these two are always in the DOM -->
-          <a class='topic list-group-item active'>recentest</a>
-          <a class='topic list-group-item'>less recenter</a>
-          <a class='topic list-group-item'>oldest</a>
-          <a class='topic list-group-item disabled hideme' id='empty-stack'>nothing yet</a>
-          <a class='topic list-group-item hideme' id='ptype'>prototype</a>
+          <a class='topic list-group-item disabled' id='empty-stack'>no topics yet</a>
+          <a class='topic list-group-item hideme' id='ptype'></a>
         </div>
+        <br>
+        <p id='tutor'>
+          Constack keeps track of your conversation topics as a
+          <a href='https://en.wikipedia.org/wiki/Stack_%28abstract_data_type%29'>stack.</a>
+          Push elements by typing and pressing return or clicking push. Pop the
+          top element by pressing delete when no text has been entered or by
+          clicking the stack. Pop other elements by clicking them.
+        </p>
       </div>
     </div>
   </body>
