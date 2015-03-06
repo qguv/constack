@@ -17,16 +17,20 @@
 
     :css
       .hideme { display: none; }
-      p { color: #999; }
-      p#tutor { text-align: justify; }
-      p#credit { text-align: right; }
+      p, ul { color: #999; text-align: justify; }
+      p.center-text { text-align: center; }
 
   %body
+
+    / bootstrap's top-level container
     %div.container
+
+      / to use "center" column to display stack
       %div.col-xs-12.col-md-6.col-md-offset-3
 
         %h2 constack
 
+        / text field and "stack push" button
         %div.input-group
           %input.form-control(type="text" placeholder="New Topic")
             %span.input-group-btn
@@ -34,22 +38,53 @@
                 %span(class="glyphicon glyphicon-download-alt")
                 Push
 
+        / the contents of the stack
         %hr
         %div#topics
-          / these two are always in the DOM
+
+          / actual stack elements would go here
+
+          / shown only when stack is empty
           %a#empty-stack.topic.list-group-item.disabled no topics yet
+
+          / the prototype used to generate new stack elements
           %a#ptype.topic.list-group-item.hideme
 
-        %br
-        %p#tutor
-          Constack keeps track of your conversation topics as a
-          %a(href="https://en.wikipedia.org/wiki/Stack_%28abstract_data_type%29") stack.
-          Push elements by typing and pressing return or clicking push. Pop the
-          top element by pressing delete when no text has been entered or by
-          clicking the stack.
-          %strong
-            All data is stored locally, so only you can see it. All topics are erased entirely when you
+        / all "hide" links in this section are hidden when text isn't displayed
+        %div#help-links
+          %br
+          %p.center-text
+            %a#show-full-help(href="#") Show help
+            %a#hide-full-help.hideme(href="#") Hide help
+            &nbsp;&mdash;&nbsp;
+            %a#show-shortcuts(href="#") Show keyboard shortcuts
+            %a#hide-shortcuts.hideme(href="#") Hide keyboard shortcuts
+            &nbsp;&mdash;&nbsp;
+            %a(href="http://github.com/qguv/constack") Source (Github)
+
+        / basic about/help/overview prose
+        %div#full-help.hideme
+          %br
+          %p
+            Constack keeps track of your conversation topics as a
+            %a(href="https://en.wikipedia.org/wiki/Stack_%28abstract_data_type%29") stack.
+            Type to push elements; click the stack to pop. All data is stored
+            locally, so
+            %strong only you can see it.
+            All topics are
+            %strong erased entirely
+            when you
             %a(href="#" onclick="window.location.reload(true);") reload the page.
-        %p#credit
-          by Quint Guvernator. Source available
-          %a(href="http://github.com/qguv/constack") on Github.
+
+        / help text about keyboard shortcuts
+        %div#shortcuts.hideme
+          %br
+          %p
+            Put your cursor in the text area and press:
+            %ul
+              %li
+                %strong Return
+                (with text entered) to push
+              %li
+                %strong Delete
+                (with no text entered) to pop

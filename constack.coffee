@@ -22,7 +22,7 @@ spush = ->
   $('input').val ''
 
   # rewire onClick handlers
-  recalc()
+  rewire_stack()
 
 spop = ->
   # grab old 'doomed' and new 'hotshot' tip-of-stack elements
@@ -44,9 +44,9 @@ spop = ->
     hotshot.fadeIn() # fade in the 'empty stack' placeholder
 
   # rewire onClick handlers
-  recalc()
+  rewire_stack()
 
-recalc = ->
+rewire_stack = ->
   $('a.topic').unbind()
   $('a.topic').not('#ptype').not('#empty-stack').click spop
 
@@ -69,4 +69,25 @@ $(document).ready ->
     # if delete is pressed in an empty text field
     spop() if event.which == 0x2e and $('input').val() == ''
 
-  recalc()
+  # wire up links to toggle full help/about section
+  $('a#show-full-help').click ->
+    $('div#full-help').fadeIn()
+    $('a#hide-full-help').show()
+    $('a#show-full-help').hide()
+  $('a#hide-full-help').click ->
+    $('div#full-help').fadeOut()
+    $('a#show-full-help').show()
+    $('a#hide-full-help').hide()
+
+  # wire up links to toggle keyboard shortcut reference
+  $('a#show-shortcuts').click ->
+    $('div#shortcuts').fadeIn()
+    $('a#hide-shortcuts').show()
+    $('a#show-shortcuts').hide()
+  $('a#hide-shortcuts').click ->
+    $('div#shortcuts').fadeOut()
+    $('a#show-shortcuts').show()
+    $('a#hide-shortcuts').hide()
+
+  # wire up all stack elements to respond to clicks 
+  rewire_stack()
