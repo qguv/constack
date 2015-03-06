@@ -50,6 +50,59 @@ rewire_stack = ->
   $('a.topic').unbind()
   $('a.topic').not('#ptype').not('#empty-stack').click spop
 
+set_visible_help = (to_be_visible, fade_callback) ->
+
+  # clear the link while we fade
+  $('a#view-full-help').unbind
+
+  if to_be_visible
+
+    # fade out existing help screen and fade ours in
+    set_visible_shortcuts false, ->
+      $('div#full-help').fadeIn ->
+        $('a#view-full-help').addClass 'showing'
+
+        # flip valence of show/hide link
+        $('a#view-full-help').click -> set_visible_shortcuts not to_be_visible
+  
+  else
+
+    # fade out our screen
+    $('div#full-help').fadeOut ->
+      $('a#view-full-help').removeClass 'showing'
+      fade_callback()
+
+      # flip valence of show/hide link
+      $('a#view-full-help').click -> set_visible_shortcuts not to_be_visible
+
+  # reverse valence of click handler
+  $('a#view-full-help').click -> set_visible_help not to_be_visible
+
+set_visible_shortcuts = (to_be_visible, fade_callback) ->
+
+  # clear the link while we fade
+  $('a#view-shortcuts').unbind
+
+  if to_be_visible
+
+    # fade out existing help screen and fade ours in
+    set_visible_help false, ->
+      $('div#shortcuts').fadeIn ->
+        $('a#view-shortcuts').addClass 'showing'
+
+        # flip valence of show/hide link
+        $('a#view-shortcuts').click -> set_visible_shortcuts not to_be_visible
+
+  else
+
+    # fade out our screen
+    $('div#shortcuts').fadeOut ->
+      $('a#view-shortcuts').removeClass 'showing'
+      fade_callback()
+
+      # flip valence of show/hide link
+      $('a#view-shortcuts').click -> set_visible_shortcuts not to_be_visible
+
 $(document).ready ->
 
   # wire up the text field's button
@@ -70,24 +123,10 @@ $(document).ready ->
     spop() if event.which == 0x2e and $('input').val() == ''
 
   # wire up links to toggle full help/about section
-  $('a#show-full-help').click ->
-    $('div#full-help').fadeIn()
-    $('a#hide-full-help').show()
-    $('a#show-full-help').hide()
-  $('a#hide-full-help').click ->
-    $('div#full-help').fadeOut()
-    $('a#show-full-help').show()
-    $('a#hide-full-help').hide()
+  set_visible_help false
 
   # wire up links to toggle keyboard shortcut reference
-  $('a#show-shortcuts').click ->
-    $('div#shortcuts').fadeIn()
-    $('a#hide-shortcuts').show()
-    $('a#show-shortcuts').hide()
-  $('a#hide-shortcuts').click ->
-    $('div#shortcuts').fadeOut()
-    $('a#show-shortcuts').show()
-    $('a#hide-shortcuts').hide()
+  set_visible_shortcuts false
 
   # wire up all stack elements to respond to clicks 
   rewire_stack()
